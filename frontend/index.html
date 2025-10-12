@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campaign Tracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <nav>
+        <h2>Campaign Tracker</h2>
+        <button onclick="logout()">Logout</button>
+    </nav>
+
+    <div class="container">
+        <h3>Add New Campaign</h3>
+        <form id="campaignForm">
+            <input type="text" id="campaignName" placeholder="Campaign Name" required>
+            <input type="text" id="clientName" placeholder="Client Name" required>
+            <input type="date" id="startDate" required>
+            <select id="status">
+        <option value="Active">Active</option>
+        <option value="Paused">Paused</option>
+        <option value="Completed">Completed</option>
+      </select>
+            <button type="submit">Add Campaign</button>
+        </form>
+        <h3>Dashboard Summary</h3>
+        <div class="dashboard">
+            <div class="card" id="totalCount">Total: 0</div>
+            <div class="card active" id="activeCount">Active: 0</div>
+            <div class="card paused" id="pausedCount">Paused: 0</div>
+            <div class="card completed" id="completedCount">Completed: 0</div>
+        </div>
+
+        <h3>All Campaigns</h3>
+        <input type="text" id="search" placeholder="Search campaigns...">
+        <table>
+            <thead>
+                <tr>
+                    <th>Campaign Name</th>
+                    <th>Client Name</th>
+                    <th>Start Date</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="campaignList"></tbody>
+        </table>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
