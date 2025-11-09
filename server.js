@@ -9,7 +9,7 @@ app.use(cors());
 app.use(express.json());
 
 // Serve frontend static files
-app.use(express.static(path.join(__dirname, "public"))); // put your HTML/CSS/JS here
+app.use(express.static(path.join(__dirname, "frontend"))); // put your HTML/CSS/JS here
 
 const FILE = "./campaigns.json";
 
@@ -43,7 +43,7 @@ app.delete("/campaigns/:id", (req, res) => {
 
 // Serve index.html for root route
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "public/index.html"));
+  res.sendFile(path.join(__dirname, "frontend/index.html"));
 });
 
 // Start server
