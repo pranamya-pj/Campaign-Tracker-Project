@@ -11,10 +11,17 @@ const campaignForm = document.getElementById("campaignForm");
 const campaignList = document.getElementById("campaignList");
 const search = document.getElementById("search");
 
+// Use relative path for API calls
+const API = "/campaigns";
+
 async function loadCampaigns() {
-    const res = await fetch("http://localhost:5000/campaigns");
-    const data = await res.json();
-    displayCampaigns(data);
+    try {
+        const res = await fetch(API);
+        const data = await res.json();
+        displayCampaigns(data);
+    } catch (err) {
+        console.error("Error loading campaigns:", err);
+    }
 }
 
 function displayCampaigns(campaigns) {
@@ -50,7 +57,6 @@ function displayCampaigns(campaigns) {
     });
 }
 
-
 campaignForm.addEventListener("submit", async e => {
     e.preventDefault();
     const newCampaign = {
@@ -60,27 +66,39 @@ campaignForm.addEventListener("submit", async e => {
         status: document.getElementById("status").value
     };
 
-    await fetch("http://localhost:5000/campaigns", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newCampaign)
-    });
-    campaignForm.reset();
-    loadCampaigns();
+    try {
+        await fetch(API, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(newCampaign)
+        });
+        campaignForm.reset();
+        loadCampaigns();
+    } catch (err) {
+        console.error("Error adding campaign:", err);
+    }
 });
 
 async function updateStatus(id, status) {
-    await fetch(`http://localhost:5000/campaigns/${id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ status })
-    });
-    loadCampaigns();
+    try {
+        await fetch(`${API}/${id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ status })
+        });
+        loadCampaigns();
+    } catch (err) {
+        console.error("Error updating status:", err);
+    }
 }
 
 async function deleteCampaign(id) {
-    await fetch(`http://localhost:5000/campaigns/${id}`, { method: "DELETE" });
-    loadCampaigns();
+    try {
+        await fetch(`${API}/${id}`, { method: "DELETE" });
+        loadCampaigns();
+    } catch (err) {
+        console.error("Error deleting campaign:", err);
+    }
 }
 
 search.addEventListener("input", loadCampaigns);
