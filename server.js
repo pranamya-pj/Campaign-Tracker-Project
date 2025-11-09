@@ -35,4 +35,5 @@ app.delete("/campaigns/:id", (req, res) => {
   res.json({success: true});
 });
 
-app.listen(PORT, () => console.log(Server running on port ${PORT}));
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
